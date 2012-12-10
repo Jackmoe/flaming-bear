@@ -1,5 +1,5 @@
-Toronto Fire - Computerized Dispatch Data Scraper
-=================================================
+Toronto Fire Computerized Dispatch - Python Data Scraper
+========================================================
 
 Created a simple script to scrape the Toronto Fire Services Computerized Dispatch data feed located at:
 <p>http://www.toronto.ca/fire/cadinfo/livecad.htm</p>
