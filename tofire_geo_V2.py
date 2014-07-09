@@ -51,9 +51,9 @@ def getincident():
         elif cross_one and not cross_one.isspace() and cross_two and not cross_two.isspace():
             lookup = str(cross_one) + ' at ' + str(cross_two) + ', ' + 'Toronto, ON'
         address, (latitude, longitude) = geolocator.geocode(lookup)
-	incident[7] = incident[7].replace("\n", "").replace("\r", "")
-    incident[7] = incident[7][:-2]
-	incident.append(address)
+	    incident[7] = incident[7].replace("\n", "").replace("\r", "")
+        incident[7] = incident[7][:-2]
+	    incident.append(address)
         incident.append(latitude)
         incident.append(longitude)
         to_db = [i for i in incident]
@@ -63,7 +63,7 @@ def getincident():
 	added = time.strftime("%Y-%m-%d %H:%M:%S")
     	update = 'DB Updated @ ' + added
     	print update
-	time.sleep(60)
+	time.sleep(299)
 
 if __name__ == "__main__":
     hw_thread = threading.Thread(target = getincident)
