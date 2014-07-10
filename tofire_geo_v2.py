@@ -12,7 +12,7 @@ _URL = 'http://www.toronto.ca/fire/cadinfo/livecad.htm'
 
 
 def getincident():
-    gc.set_debug(gc.DEBUG_LEAK|gc.DEBUG_STATS)
+    gc.enable()
     response = requests.get(_URL)
     r_code = 'Status = ' + str(response.status_code)
     r_encoding = 'Encoding = ' + str(response.encoding)
