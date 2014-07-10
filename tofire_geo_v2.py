@@ -9,9 +9,10 @@ import psycopg2
 import gc
 
 _URL = 'http://www.toronto.ca/fire/cadinfo/livecad.htm'
-gc.set_debug(gc.DEBUG_LEAK|gc.DEBUG_STATS)
+
 
 def getincident():
+    gc.set_debug(gc.DEBUG_LEAK|gc.DEBUG_STATS)
     response = requests.get(_URL)
     r_code = 'Status = ' + str(response.status_code)
     r_encoding = 'Encoding = ' + str(response.encoding)
