@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup as bs
 from geopy.geocoders import GoogleV3
 import re
 import psycopg2
+import gc
 
 _URL = 'http://www.toronto.ca/fire/cadinfo/livecad.htm'
 
@@ -66,6 +67,16 @@ def getincident():
 	time.sleep(299)
 
 if __name__ == "__main__":
+    gc.set_debug(gc.DEBUG_LEAK)
+    print "\n== Without self reference =="
+    no_self_reference()
+    print "Uncollectable garbage", gc.garbage
+    print "\n== With self reference =="
+    self_reference()
+    print "Uncollectable garbage", gc.garbage
+    print "= Forcing full collection ="
+    gc.collect()
+    print "Uncollectable garbage", gc.garbage
     hw_thread = threading.Thread(target = getincident)
     hw_thread.daemon = True
     hw_thread.start()
