@@ -53,9 +53,9 @@ def getincident(url,conn):
         cross_one = cross[0]
         cross_two = cross[1]
         if contains_digits(incident[2]) == True:
-            i[2] = i[2]
+            incident[2] = incident[2]
         else:
-            i[2] = added
+            incident[2] = added
         if prime and not prime.isspace() and cross_one and not cross_one.isspace():
             lookup = str(prime) + ' at ' + str(cross_one) + ', ' + 'Toronto, ON'
         elif prime and not prime.isspace() and cross_two and not cross_two.isspace():
