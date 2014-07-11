@@ -12,6 +12,10 @@ gc.enable()
 
 _URL = 'http://www.toronto.ca/fire/cadinfo/livecad.htm'
 _DB = psycopg2.connect("dbname=firecad user=jm")
+_digits = re.compile('\d')
+
+def contains_digits(d):
+    return bool(_digits.search(d))
 
 def getincident(url,conn):
     response = requests.get(url)
@@ -35,6 +39,7 @@ def getincident(url,conn):
     incidents = [colslist[i:i+list_size] for i in xrange(0, len(colslist), list_size)]
 
     num_inci = len(incidents) # Get the number of incidents
+    added = time.strftime("%Y-%m-%d %H:%M:%S")
 
     geolocator = GoogleV3()
 
@@ -47,6 +52,10 @@ def getincident(url,conn):
         cross = cross.split('/', 1)
         cross_one = cross[0]
         cross_two = cross[1]
+        if contains_digits(incident[2]) == True:
+            i[2] = i[2]
+        else:
+            i[2] = added
         if prime and not prime.isspace() and cross_one and not cross_one.isspace():
             lookup = str(prime) + ' at ' + str(cross_one) + ', ' + 'Toronto, ON'
         elif prime and not prime.isspace() and cross_two and not cross_two.isspace():
@@ -63,7 +72,6 @@ def getincident(url,conn):
         cur.execute("INSERT INTO incidents (prime_street, cross_street, time, eid, etype, alarm, beat, units, address, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", to_db)        
    	conn.commit()
 	
-	added = time.strftime("%Y-%m-%d %H:%M:%S")
     	update = 'DB Updated @ ' + added
     	print update
 
